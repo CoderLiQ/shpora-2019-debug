@@ -1,0 +1,16 @@
+64-bit version
+1024x512 - 1,50 MB
+Compression: 00:00:18.5830653
+Decompression: 00:00:28.1673074
+Peak commit size: 258,85 MB
+Peak working set: 259,91 MB
+__________________________________Default Initial
+
+64-bit version
+1024x512 - 1,50 MB
+Compression: 00:00:09.6555898
+Decompression: 00:00:24.7841688
+Peak commit size: 259,63 MB
+Peak working set: 260,72 MB
+
+__________________________________Remove extensions is compression

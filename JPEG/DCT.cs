@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using JPEG.Utilities;
 
 namespace JPEG
@@ -11,19 +12,23 @@ namespace JPEG
 			var width = input.GetLength(1);
 			var coeffs = new double[width, height];
 
-			MathEx.LoopByTwoVariables(
-				0, width,
-				0, height,
-				(u, v) =>
-				{
-					var sum = MathEx
-						.SumByTwoVariables(
-							0, width,
-							0, height,
-							(x, y) => BasisFunction(input[x, y], u, v, x, y, height, width));
+            for (var i = 0; i < width; i++)
+            {
+                for (var j = 0; j < height; j++)
+                {
+                    var sum = 0d;
+                    for (var k = 0; k < width; k++)
+                    {
+                        for (var l = 0; l < height; l++)
+                        {
+                            sum += BasisFunction(input[l, k], i, j, l, k, height, width);
+                        }
+                        coeffs[i, j] = sum * Beta(height, width) * Alpha(i) * Alpha(j);
+                    }
 
-					coeffs[u, v] = sum * Beta(height, width) * Alpha(u) * Alpha(v);
-				});
+                    return coeffs;
+                }
+            }
 			
 			return coeffs;
 		}
