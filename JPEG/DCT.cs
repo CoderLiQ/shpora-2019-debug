@@ -1,6 +1,4 @@
 ﻿using System;
-using System.CodeDom;
-using JPEG.Utilities;
 
 namespace JPEG
 {
