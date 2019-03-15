@@ -23,3 +23,11 @@ Peak commit size: 273,13 MB
 Peak working set: 273,54 MB
 
 __________________________________Remove extensions is decompression
+
+64-bit version
+1024x512 - 1,50 MB
+Compression: 00:00:01.0105175
+Decompression: 00:00:12.7483001
+Peak commit size: 149,28 MB
+Peak working set: 151,04 MB
+__________________________________Replace redundant PixelFormat class with enum
