@@ -39,7 +39,7 @@ namespace JPEG
 				Console.WriteLine("Compression: " + sw.Elapsed);
 				sw.Restart();
 				var compressedImage = CompressedImage.Load(compressedFileName);
-				var uncompressedImage = Compressor.Uncompress(compressedImage);
+				var uncompressedImage = Compressor.Decompress(compressedImage);
 				var resultBmp = (Bitmap) uncompressedImage;
 				resultBmp.Save(uncompressedFileName, ImageFormat.Bmp);
 				Console.WriteLine("Decompression: " + sw.Elapsed);

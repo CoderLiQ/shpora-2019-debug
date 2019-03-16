@@ -36,7 +36,7 @@ namespace JPEG
             return new CompressedImage { Quality = quality, CompressedBytes = compressedBytes, BitsCount = bitsCount, DecodeTable = decodeTable, Height = matrix.Height, Width = matrix.Width };
         }
 
-        public static Matrix Uncompress(CompressedImage image)
+        public static Matrix Decompress(CompressedImage image)
         {
             var result = new Matrix(image.Height, image.Width);
             using (var allQuantizedBytes =

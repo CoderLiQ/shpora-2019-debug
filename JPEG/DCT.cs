@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace JPEG
 {
@@ -10,9 +11,25 @@ namespace JPEG
             var width = input.GetLength(1);
             var coeffs = new double[width, height];
 
-            for (var i = 0; i < width; i++)
-            {
-                for (var j = 0; j < height; j++)
+//            for (var i = 0; i < width; i++)
+//            {
+//                for (var j = 0; j < height; j++)
+//                {
+//                    var sum = 0d;
+//                    for (var k = 0; k < width; k++)
+//                    {
+//                        for (var l = 0; l < height; l++)
+//                        {
+//                            sum += BasisFunction(input[l, k], i, j, l, k, height, width);
+//                        }
+//            
+//                        coeffs[i, j] = sum * Beta(height, width) * Alpha(i) * Alpha(j);
+//                    }
+//            
+//                    return coeffs;
+//                }
+//            }
+            ParallelLoopByTwoVariables(0, width,0, height, (i, j) =>
                 {
                     var sum = 0d;
                     for (var k = 0; k < width; k++)
@@ -24,13 +41,12 @@ namespace JPEG
 
                         coeffs[i, j] = sum * Beta(height, width) * Alpha(i) * Alpha(j);
                     }
-
-                    return coeffs;
-                }
-            }
+                });
 
             return coeffs;
         }
+
+        
 
         public static void IDCT2D(double[,] coeffs, double[,] output)
         {
@@ -55,10 +71,11 @@ namespace JPEG
             }
         }
 
-        public static double BasisFunction(double a, double u, double v, double x, double y, int height, int width)
+
+        private static double BasisFunction(double a, double u, double v, double x, double y, int height, int width)
         {
-            var b = Math.Cos(((2d * x + 1d) * u * Math.PI) / (2 * width));
-            var c = Math.Cos(((2d * y + 1d) * v * Math.PI) / (2 * height));
+            var b = Math.Cos((2d * x + 1d) * u * Math.PI / (2 * width));
+            var c = Math.Cos((2d * y + 1d) * v * Math.PI / (2 * height));
 
             return a * b * c;
         }
@@ -73,6 +90,10 @@ namespace JPEG
         private static double Beta(int height, int width)
         {
             return 1d / width + 1d / height;
+        }
+        private static void ParallelLoopByTwoVariables(int from1, int to1, int from2, int to2, Action<int, int> function)
+        {
+            Parallel.For(from1, to1, i1 => { Parallel.For(from2, to2, i2 => function(i1, i2)); });
         }
     }
 }
