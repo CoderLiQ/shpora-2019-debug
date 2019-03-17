@@ -39,3 +39,11 @@ Decompression: 00:00:03.3529726
 Peak commit size: 127,64 MB
 Peak working set: 128,73 MB
 __________________________________ Paralleling
+
+64-bit version
+1024x512 - 1,50 MB
+Compression: 00:00:03.3693923
+Decompression: 00:00:03.1512241
+Peak commit size: 84,18 MB
+Peak working set: 82,73 MB
+__________________________________ Pixel class to struct (memory consumption reduced)

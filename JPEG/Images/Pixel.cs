@@ -1,8 +1,8 @@
 ﻿namespace JPEG.Images
 {
-    public class Pixel
+    public struct Pixel
     {
-        public Pixel(double firstComponent, double secondComponent, double thirdComponent, PixelFormat pixelFormat)
+        public Pixel(double firstComponent, double secondComponent, double thirdComponent, PixelFormat pixelFormat) :this()
         {
             switch (pixelFormat)
             {
