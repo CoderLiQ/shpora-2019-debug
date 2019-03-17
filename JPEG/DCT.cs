@@ -26,7 +26,7 @@ namespace JPEG
 //                        coeffs[i, j] = sum * Beta(height, width) * Alpha(i) * Alpha(j);
 //                    }
 //            
-//                    return coeffs;
+////                    return coeffs;
 //                }
 //            }
             ParallelLoopByTwoVariables(0, width,0, height, (i, j) =>
@@ -53,22 +53,37 @@ namespace JPEG
             var height = coeffs.GetLength(0);
             var width = coeffs.GetLength(1);
 
-            for (var i = 0; i < width; i++)
-            {
-                for (var j = 0; j < height; j++)
-                {
-                    var sum = 0d;
-                    for (var k = 0; k < width; k++)
-                    {
-                        for (var l = 0; l < height; l++)
-                        {
-                            sum += BasisFunction(coeffs[k, l], k, l, i, j, height, width) * Alpha(k) * Alpha(l);
-                        }
-                    }
 
-                    output[i, j] = sum * Beta(height, width);
+            ParallelLoopByTwoVariables(0, width, 0, height, (i, j) =>
+            {
+                var sum = 0d;
+                for (var k = 0; k < width; k++)
+                {
+                    for (var l = 0; l < height; l++)
+                    {
+                        sum += BasisFunction(coeffs[k, l], k, l, i, j, height, width) * Alpha(k) * Alpha(l);
+                    }
                 }
-            }
+
+                output[i, j] = sum * Beta(height, width);
+            });
+
+//            for (var i = 0; i < width; i++)
+//            {
+//                for (var j = 0; j < height; j++)
+//                {
+//                    var sum = 0d;
+//                    for (var k = 0; k < width; k++)
+//                    {
+//                        for (var l = 0; l < height; l++)
+//                        {
+//                            sum += BasisFunction(coeffs[k, l], k, l, i, j, height, width) * Alpha(k) * Alpha(l);
+//                        }
+//                    }
+//
+//                    output[i, j] = sum * Beta(height, width);
+//                }
+//            }
         }
 
 
